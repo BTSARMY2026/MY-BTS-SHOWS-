@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#8b5cf6"><title>BTS Show List 💜</title>
+<style>
+:root{--bg:#f7f2ff;--card:#fff;--ink:#34264a;--muted:#827392;--purple:#8b5cf6;--pale:#eee5ff;--line:#eadff8;--pink:#ffd9ec}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(160deg,#f8f2ff,#fff7fb 55%,#f2eaff);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:20px 14px 42px}
+main{max-width:720px;margin:auto}.hero{border-radius:28px;padding:25px 21px;color:white;background:linear-gradient(135deg,#7651d6,#b28af8 60%,#f0a7d3);box-shadow:0 12px 30px #9875c933;position:relative;overflow:hidden}.hero:after{content:'♡';position:absolute;right:18px;top:5px;font-size:100px;opacity:.16}.eyebrow{font-size:12px;letter-spacing:2px;font-weight:800;opacity:.85}.hero h1{font-size:30px;line-height:1.05;margin:10px 0}.hero p{margin:0;font-size:14px;opacity:.94}.progressbox{margin-top:19px;background:#ffffff30;border:1px solid #ffffff55;padding:12px 14px;border-radius:16px}.progressline{display:flex;justify-content:space-between;font-size:13px;font-weight:700;margin-bottom:8px}.bar{height:8px;background:#ffffff60;border-radius:99px;overflow:hidden}.bar span{display:block;height:100%;width:0;background:white;border-radius:99px;transition:width .2s}.controls{display:flex;gap:8px;margin:17px 0 10px;flex-wrap:wrap}.search{flex:1;min-width:180px;padding:13px 14px;border:1px solid var(--line);border-radius:14px;background:white;font-size:15px;color:var(--ink);outline-color:var(--purple)}select,button{font:inherit}.controls select,.controls button{border:1px solid var(--line);border-radius:14px;background:white;color:var(--ink);padding:12px}.controls button{background:var(--pale);font-weight:700}.hint{font-size:12px;color:var(--muted);margin:0 3px 16px;line-height:1.5}.year{margin:18px 0 9px;font-size:20px;font-weight:850;display:flex;align-items:center;gap:8px}.year:before{content:'';width:6px;height:23px;border-radius:6px;background:var(--purple)}.item{background:var(--card);border:1px solid var(--line);border-radius:17px;padding:14px;margin:8px 0;display:flex;gap:12px;align-items:flex-start;box-shadow:0 3px 12px #6f4ba00a}.item input{appearance:none;flex:none;width:23px;height:23px;border:2px solid #c8b4e9;border-radius:8px;margin:2px 0 0;cursor:pointer;background:#fff}.item input:checked{background:var(--purple);border-color:var(--purple)}.item input:checked:after{content:'✓';display:block;color:white;text-align:center;font-weight:900;line-height:19px}.details{flex:1;min-width:0}.name{font-size:15px;font-weight:800;line-height:1.35}.meta{font-size:12px;color:var(--muted);margin-top:5px;line-height:1.4}.item.done .name{text-decoration:line-through;color:#9387a5}.tag{display:inline-block;margin-top:7px;padding:4px 8px;border-radius:99px;background:var(--pale);font-size:11px;font-weight:750;color:#6942b5}.empty{text-align:center;padding:28px;color:var(--muted)}footer{text-align:center;color:var(--muted);font-size:12px;margin:24px 8px 0;line-height:1.5}.small{font-size:11px;color:var(--muted)}
+</style></head><body><main>
+<header class="hero"><div class="eyebrow">ARMY WATCHLIST</div><h1>BTS Show List 💜</h1><p>Твой уютный список групповых шоу BTS</p><div class="progressbox"><div class="progressline"><span>Мой просмотр</span><span id="count">0 из 0</span></div><div class="bar"><span id="bar"></span></div></div></header>
+<div class="controls"><input class="search" id="search" placeholder="Найти шоу…" aria-label="Найти шоу"><select id="year"><option value="all">Все годы</option></select><button id="reset">Сбросить ✓</button></div>
+<p class="hint">Отмечай серии/шоу, которые уже посмотрела. Отметки сохраняются в этом браузере на устройстве.</p>
+<div id="list"></div>
+<footer>보라해 💜 · Фанатский личный трекер, неофициальный проект.<br>Количество эпизодов у отдельных спецвыпусков может отличаться в разных каталогах.</footer>
+</main>
+<script>
+const shows=[
+{year:2013,name:'Rookie King: Channel Bangtan',episodes:'8 эпизодов',date:'2013'},
+{year:2014,name:'BTS China Job',episodes:'короткий групповой проект',date:'2014 · точное число выпусков перепроверить'},
+{year:2014,name:'BTS American Hustle Life',episodes:'8 эпизодов',date:'2014'},
+{year:2015,name:'BTS GAYO — сезон 1',episodes:'9 эпизодов',date:'2015'},
+{year:2015,name:'Run BTS!',episodes:'159 основных эпизодов*',date:'2015–2023'},
+{year:2015,name:'BTS Lucky Draw / Bokbulbok',episodes:'количество зависит от каталога',date:'2015'},
+{year:2016,name:'BTS Bon Voyage — сезон 1',episodes:'8 эпизодов',date:'2016'},
+{year:2017,name:'BTS GAYO — сезон 2',episodes:'6 эпизодов',date:'2017'},
+{year:2017,name:'BTS Bon Voyage — сезон 2',episodes:'8 эпизодов',date:'2017'},
+{year:2018,name:'BTS Bon Voyage — сезон 3',episodes:'8 эпизодов',date:'2018'},
+{year:2018,name:'Burn the Stage: The Series',episodes:'8 эпизодов',date:'2018 · документальный сериал'},
+{year:2019,name:'BTS Bon Voyage — сезон 4',episodes:'8 эпизодов',date:'2019–2020'},
+{year:2019,name:'Bring the Soul: Docu-Series',episodes:'6 эпизодов',date:'2019 · документальный сериал'},
+{year:2020,name:'Learn Korean with BTS',episodes:'30 уроков',date:'2020 · обучающий проект'},
+{year:2020,name:'Break the Silence: Docu-Series',episodes:'7 эпизодов',date:'2020 · документальный сериал'},
+{year:2020,name:'In the SOOP BTS ver. — сезон 1',episodes:'8 эпизодов',date:'2020'},
+{year:2021,name:'In the SOOP BTS ver. — сезон 2',episodes:'5 выпусков на Weverse',date:'2021'},
+{year:2021,name:"Let's BTS",episodes:'1 специальная программа',date:'2021'},
+{year:2021,name:'The Game Caterers × Run BTS!',episodes:'2 части',date:'2021 · совместный спецпроект'},
+{year:2022,name:'BTS MBTI Lab',episodes:'2 эпизода',date:'2022'},
+{year:2023,name:'BTS Monuments: Beyond the Star',episodes:'8 эпизодов',date:'2023–2024 · документальный сериал'},
+{year:2024,name:'BTS FESTA — групповые праздничные материалы',episodes:'специальные выпуски',date:'2024'},
+{year:2025,name:'BTS FESTA — групповые праздничные материалы',episodes:'специальные выпуски',date:'2025'},
+{year:2026,name:'Run BTS! 2.0',episodes:'новый формат; число выпусков требует проверки',date:'2026'}
+];
+const key='btsShowListCheckedV1';let checked={};try{checked=JSON.parse(localStorage.getItem(key)||'{}')}catch(e){}
+const list=document.getElementById('list'),yearSel=document.getElementById('year'),search=document.getElementById('search');
+[...new Set(shows.map(s=>s.year))].forEach(y=>{let o=document.createElement('option');o.value=y;o.textContent=y;yearSel.append(o)});
+function render(){list.innerHTML='';let q=search.value.trim().toLowerCase(),yf=yearSel.value;let filtered=shows.filter(s=>(yf==='all'||String(s.year)===yf)&&(`${s.name} ${s.year} ${s.episodes} ${s.date}`.toLowerCase().includes(q)));let grouped={};filtered.forEach((s)=>{(grouped[s.year]??=[]).push(s)});if(!filtered.length){list.innerHTML='<div class="empty">Ничего не найдено 💜</div>'}Object.keys(grouped).sort((a,b)=>a-b).forEach(y=>{let h=document.createElement('h2');h.className='year';h.textContent=y;list.append(h);grouped[y].forEach(s=>{let idx=shows.indexOf(s),row=document.createElement('label');row.className='item'+(checked[idx]?' done':'');let cb=document.createElement('input');cb.type='checkbox';cb.checked=!!checked[idx];cb.addEventListener('change',()=>{checked[idx]=cb.checked;try{localStorage.setItem(key,JSON.stringify(checked))}catch(e){}render()});let d=document.createElement('div');d.className='details';let n=document.createElement('div');n.className='name';n.textContent=s.name;let m=document.createElement('div');m.className='meta';m.textContent=s.date;let t=document.createElement('span');t.className='tag';t.textContent=s.episodes;d.append(n,m,t);row.append(cb,d);list.append(row)})});let total=shows.length,done=Object.values(checked).filter(Boolean).length;document.getElementById('count').textContent=`${done} из ${total}`;document.getElementById('bar').style.width=(done/total*100)+'%'}
+search.addEventListener('input',render);yearSel.addEventListener('change',render);document.getElementById('reset').addEventListener('click',()=>{if(confirm('Снять все отметки о просмотре?')){checked={};try{localStorage.removeItem(key)}catch(e){}render()}});render();
+</script></body></html>
